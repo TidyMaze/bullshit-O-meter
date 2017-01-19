@@ -21,18 +21,19 @@ function drawChart() {
   var nbMeGusta = 0;
   var nbBullshit = 0;
 
-  setInterval(()=>{
-    $.ajax({
-      url: "/vote"
-    }).done(function(res) {
-	nbMeGusta = res.nbMeGusta;
-	nbBullshit = res.nbBullshit;
-    });
-  }, 1000);
+  var socket = io.connect('/');
+  socket.on('news', function (data) {
+    console.log("Received socket data : " + JSON.stringify(data));
+  });
+  socket.on('data', function (data) {
+    console.log("Received socket data : " + JSON.stringify(data));
+    nbMeGusta = data.nbMeGusta;
+    nbBullshit = data.nbBullshit;
+  });
 
   setInterval(()=>{
     data.addRow([new Date(Date.now()), nbMeGusta, nbBullshit]);
-    if(data.getNumberOfRows() > 50){
+    if(data.getNumberOfRows() > 200){
       data.removeRow(0);
     }
 
@@ -63,9 +64,4 @@ $(document).ready(()=>{
       }
     });
   });
-});
-
-var socket = io.connect('http://yaro.fr:3000');
-socket.on('news', function (data) {
-  console.log("Received socket data : " + JSON.stringify(data));
 });

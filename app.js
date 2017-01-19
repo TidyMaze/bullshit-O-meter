@@ -1,6 +1,8 @@
 
 
-var express = require('express'),
+var app = require('express')(),
+  server = require('http').Server(app);
+  io = require('socket.io')(server);
   config = require('./config/config'),
   glob = require('glob'),
   mongoose = require('mongoose');
@@ -16,28 +18,45 @@ models.forEach(function (model) {
   require(model);
 });
 
-var app = express();
 module.exports = require('./config/express')(app, config);
 
 var gracefulExit = function() {
-  db.close(function () {
+  db.close(function () {""
     process.exit(0);
   });
 }
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
 server.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);
 });
 
+Vote = mongoose.model('Vote');
+
+var allClients = [];
 
 io.on('connection', function (socket) {
   socket.emit('news', 'welcome here new client !');
-  setInterval(function(){
-    socket.emit('news', 'ping');
-  }, 1000);  
+  allClients.push(socket);
+  socket.on('disconnect', function(){
+    allClients.splice(allClients.indexOf(socket), 1);
+  });
 });
+
+var interval = setInterval(function(){
+  var cutoff = new Date();
+  cutoff.setMinutes(cutoff.getMinutes() - 5);
+  var query = Vote.find({date : {$gt : cutoff}}).sort({ date: -1 })
+  query.then(result => {
+    var voteData = {
+      nbBullshit: result.filter(v => v.vote == 'bullshit').length,
+      nbMeGusta: result.filter(v => v.vote == 'meGusta').length
+    };
+    allClients.forEach(socket => {
+      socket.emit('data', voteData);
+    });
+  }, error => {
+    console.error(error);
+  });
+}, 500);
