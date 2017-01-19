@@ -7,9 +7,7 @@ function drawChart() {
     curveType: 'function',
     legend: { position: 'bottom' },
     colors: ['green', 'red'],
-    vAxis: {
-      format: '#'
-    }
+    isStacked: 'true'
   };
 
   var data = new google.visualization.DataTable();
@@ -18,19 +16,27 @@ function drawChart() {
   data.addColumn('number', 'Bullshit');
   console.log(data);
 
-  var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+  var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+  var nbMeGusta = 0;
+  var nbBullshit = 0;
 
   setInterval(()=>{
     $.ajax({
       url: "/vote"
     }).done(function(res) {
-      console.log(res);
-      data.addRow([new Date(Date.now()), res.nbMeGusta, res.nbBullshit]);
-      if(data.getNumberOfRows()	> 1000){
-        data.removeRow(0);
-      }
-      chart.draw(data, options);
+	nbMeGusta = res.nbMeGusta;
+	nbBullshit = res.nbBullshit;
     });
+  }, 1000);
+
+  setInterval(()=>{
+    data.addRow([new Date(Date.now()), nbMeGusta, nbBullshit]);
+    if(data.getNumberOfRows() > 50){
+      data.removeRow(0);
+    }
+
+    chart.draw(data, options);
   }, 1000);
 
 }

@@ -9,7 +9,7 @@ module.exports = function (app) {
 
 router.get('/vote', (req, res) => {
   var cutoff = new Date();
-  cutoff.setMinutes(cutoff.getMinutes() - 10);
+  cutoff.setMinutes(cutoff.getMinutes() - 5);
 
   var query = Vote.find({date : {$gt : cutoff}}).sort({ date: -1 })
   query.then(result => {
