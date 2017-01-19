@@ -15,8 +15,8 @@ var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
   require(model);
 });
-var app = express();
 
+var app = express();
 module.exports = require('./config/express')(app, config);
 
 var gracefulExit = function() {
@@ -24,10 +24,20 @@ var gracefulExit = function() {
     process.exit(0);
   });
 }
-
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
 
-app.listen(config.port, function () {
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);
+});
+
+
+io.on('connection', function (socket) {
+  socket.emit('news', 'welcome here new client !');
+  setInterval(function(){
+    socket.emit('news', 'ping');
+  }, 1000);  
 });

@@ -64,3 +64,8 @@ $(document).ready(()=>{
     });
   });
 });
+
+var socket = io.connect('http://yaro.fr:3000');
+socket.on('news', function (data) {
+  console.log("Received socket data : " + JSON.stringify(data));
+});
