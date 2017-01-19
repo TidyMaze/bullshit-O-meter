@@ -32,7 +32,6 @@ function drawChart() {
       chart.draw(data, options);
     });
   }, 1000);
-
 }
 
 $(document).ready(()=>{
