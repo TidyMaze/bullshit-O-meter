@@ -26,7 +26,7 @@ function drawChart() {
     }).done(function(res) {
       console.log(res);
       data.addRow([new Date(Date.now()), res.nbMeGusta, res.nbBullshit]);
-      if(data.getNumberOfRows()	> 100){
+      if(data.getNumberOfRows()	> 1000){
         data.removeRow(0);
       }
       chart.draw(data, options);
