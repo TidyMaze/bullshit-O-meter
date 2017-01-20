@@ -41,8 +41,8 @@ function drawChart() {
   });
   socket.on('data', function (data) {
     console.log("Received socket data : " + JSON.stringify(data));
-    nbMeGusta = data.nbMeGusta;
-    nbBullshit = data.nbBullshit;
+    nbMeGusta = data.nbMeGusta||0;
+    nbBullshit = data.nbBullshit||0;
   });
 
   setInterval(()=>{

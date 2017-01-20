@@ -9,10 +9,10 @@ module.exports = function (app) {
 
 router.post('/vote', (req, res) => {
   new Vote({
-    user: req.body.user,
-    vote: req.body.vote
+    user: req.body.user||'anonymous',
+    vote: req.body.vote||'bullshit'
   }).save(function (err) {
-    if (err) return handleError(err);
+    if (err) throw err;
     res.sendStatus(200)
   });
 });
