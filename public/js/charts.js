@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['corechart', 'gauge']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
@@ -16,7 +16,21 @@ function drawChart() {
   data.addColumn('number', 'Bullshit');
   console.log(data);
 
+  var dataGauge = google.visualization.arrayToDataTable([
+    ['Label', 'Value'],
+    ['Bullshit-O-speed', 0]
+  ]);
+
   var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+  var chartGauge = new google.visualization.Gauge(document.getElementById('gauge'));
+
+  var optionsGauge = {
+    width: 300, height: 300,
+    redFrom: 90, redTo: 100,
+    yellowFrom:75, yellowTo: 90,
+    minorTicks: 5
+  };
 
   var nbMeGusta = 0;
   var nbBullshit = 0;
@@ -32,6 +46,11 @@ function drawChart() {
   });
 
   setInterval(()=>{
+    var speed = nbBullshit/(nbBullshit+nbMeGusta)*100;
+    speed = Math.round(speed * 100) / 100;
+    dataGauge.setValue(0, 1, speed);
+    chartGauge.draw(dataGauge, optionsGauge);
+
     data.addRow([new Date(Date.now()), nbMeGusta, nbBullshit]);
     if(data.getNumberOfRows() > 200){
       data.removeRow(0);
