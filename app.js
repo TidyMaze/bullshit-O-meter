@@ -46,7 +46,7 @@ io.on('connection', function (socket) {
 
 var interval = setInterval(function(){
   var cutoff = new Date();
-  cutoff.setMinutes(cutoff.getMinutes() - 5);
+  cutoff.setMinutes(cutoff.getMinutes() - 10);
   var query = Vote.find({date : {$gt : cutoff}}).sort({ date: -1 })
   query.then(result => {
     var voteData = {

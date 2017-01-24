@@ -27,8 +27,8 @@ function drawChart() {
 
   var optionsGauge = {
     width: 300, height: 300,
-    redFrom: 90, redTo: 100,
-    yellowFrom:75, yellowTo: 90,
+    redFrom: 80, redTo: 100,
+    yellowFrom:60, yellowTo: 80,
     minorTicks: 5
   };
 
@@ -41,23 +41,27 @@ function drawChart() {
   });
   socket.on('data', function (data) {
     console.log("Received socket data : " + JSON.stringify(data));
-    nbMeGusta = data.nbMeGusta||0;
-    nbBullshit = data.nbBullshit||0;
+    nbMeGusta = parseInt(data.nbMeGusta)||0;
+    nbBullshit = parseInt(data.nbBullshit)||0;
   });
 
   setInterval(()=>{
-    var speed = nbBullshit/(nbBullshit+nbMeGusta)*100;
-    speed = Math.round(speed * 100) / 100;
-    dataGauge.setValue(0, 1, speed);
-    chartGauge.draw(dataGauge, optionsGauge);
+
+    if((nbBullshit + nbMeGusta)){
+      var speed = nbBullshit/(nbBullshit+nbMeGusta)*100;
+      speed = Math.round(speed * 100) / 100;
+      dataGauge.setValue(0, 1, speed);
+      console.log(dataGauge.toJSON());
+      chartGauge.draw(dataGauge, optionsGauge);
+    }
 
     data.addRow([new Date(Date.now()), nbMeGusta, nbBullshit]);
-    if(data.getNumberOfRows() > 200){
+    if(data.getNumberOfRows() > 100){
       data.removeRow(0);
     }
 
     chart.draw(data, options);
-  }, 1000);
+  }, 500);
 
 }
 

@@ -1,0 +1,75 @@
+[00:55:55] Using gulpfile ~/bullshit-O-meter/gulpfile.js
+[00:55:55] Starting 'develop'...
+[00:55:56] Finished 'develop' after 111 ms
+[00:55:56] Starting 'default'...
+[00:55:56] Finished 'default' after 8.18 μs
+[00:55:56] [nodemon] 1.11.0
+[00:55:56] [nodemon] to restart at any time, enter `rs`
+[00:55:56] [nodemon] watching: *.*
+[00:55:56] [nodemon] starting `node app.js`
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+    at Error (native)
+[00:56:59] Using gulpfile ~/bullshit-O-meter/gulpfile.js
+[00:56:59] Starting 'develop'...
+[00:56:59] Finished 'develop' after 105 ms
+[00:56:59] Starting 'default'...
+[00:56:59] Finished 'default' after 8.68 μs
+[00:56:59] [nodemon] 1.11.0
+[00:56:59] [nodemon] to restart at any time, enter `rs`
+[00:56:59] [nodemon] watching: *.*
+[00:56:59] [nodemon] starting `node app.js`
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+    at Error (native)
+[00:58:27] Using gulpfile ~/bullshit-O-meter/gulpfile.js
+[00:58:27] Starting 'develop'...
+[00:58:28] Finished 'develop' after 100 ms
+[00:58:28] Starting 'default'...
+[00:58:28] Finished 'default' after 8.38 μs
+[00:58:28] [nodemon] 1.11.0
+[00:58:28] [nodemon] to restart at any time, enter `rs`
+[00:58:28] [nodemon] watching: *.*
+[00:58:28] [nodemon] starting `node app.js`
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+    at Error (native)
+[00:59:47] Using gulpfile ~/bullshit-O-meter/gulpfile.js
+[00:59:47] Starting 'develop'...
+[00:59:48] Finished 'develop' after 125 ms
+[00:59:48] Starting 'default'...
+[00:59:48] Finished 'default' after 8.04 μs
+[00:59:48] [nodemon] 1.11.0
+[00:59:48] [nodemon] to restart at any time, enter `rs`
+[00:59:48] [nodemon] watching: *.*
+[00:59:48] [nodemon] starting `node app.js`
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+    at Error (native)
+[00:59:59] Using gulpfile ~/bullshit-O-meter/gulpfile.js
+[00:59:59] Starting 'develop'...
+[00:59:59] Finished 'develop' after 119 ms
+[00:59:59] Starting 'default'...
+[00:59:59] Finished 'default' after 9.41 μs
+[00:59:59] [nodemon] 1.11.0
+[00:59:59] [nodemon] to restart at any time, enter `rs`
+[00:59:59] [nodemon] watching: *.*
+[00:59:59] [nodemon] starting `node app.js`
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+    at Error (native)
