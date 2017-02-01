@@ -1,4 +1,8 @@
-
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 var app = require('express')(),
   server = require('http').Server(app);
@@ -50,8 +54,8 @@ var interval = setInterval(function(){
   var query = Vote.find({date : {$gt : cutoff}}).sort({ date: -1 })
   query.then(result => {
     var voteData = {
-      nbBullshit: result.filter(v => v.vote == 'bullshit').length,
-      nbMeGusta: result.filter(v => v.vote == 'meGusta').length
+      nbBullshit: Math.max(result.filter(v => v.vote == 'bullshit').length + getRandomInt(-1,2),0),
+      nbMeGusta: Math.max(result.filter(v => v.vote == 'meGusta').length + getRandomInt(-1,2),0)
     };
     allClients.forEach(socket => {
       socket.emit('data', voteData);
